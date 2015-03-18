@@ -8,7 +8,9 @@ Using with docker
 =================
 
 You need docker-compose.
+
     pip install docker-compose
 
 And execute docker-compose
+
     docker-compose up
