@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%- block head -%}
+      {%- include 'head.html' -%}
+      {%- block additional_css -%}{%- endblock -%}
+    {%- endblock -%}
+  </head>
+  <body>
+    {% from "macro.html" import render_field %}
+    {%- block nav -%}{%- include 'nav.html' -%}{%- endblock -%}
+    {%- block header -%}{%- include 'header.html' -%}{%- endblock -%}
+      {%- block body -%}
+        <p>There is no body, please extend the body block.</p>
+      {%- endblock -%}
+      {%- block pager -%}{%- endblock -%}
+  {%- include 'footer.html' -%}
+  {%- block scripts -%}
+    {%- include 'js.html' -%}
+    {%- block additional_js -%}{%- endblock -%}
+  {%- endblock -%}
+  </body>
+</html>

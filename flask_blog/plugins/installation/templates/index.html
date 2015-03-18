@@ -1,0 +1,47 @@
+{%- extends "layout.html" -%}
+
+{%- block header -%}
+    <header class="intro-header" style="background-image: url('{{ url_for('static', filename='img/home-bg.jpg') }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        <h1>Welcome</h1>
+                        <hr class="small">
+                        <span class="subheading">Time to finished your installation.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{%- endblock -%}
+
+{%- block body -%}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+	<form role="form" method="post" action="{{ url_for('installation.index') }}">
+          <fieldset>
+	    <legend>Blog section</legend>
+                {{ render_field(form.title) }}
+                {{ render_field(form.description) }}
+                {{ render_field(form.bypage) }}
+          </fieldset>
+
+	  <fieldset>
+	    <legend>User section</legend>
+                {{ render_field(userform.username) }}
+                {{ render_field(userform.email) }}
+                {{ render_field(userform.password) }}
+                {{ render_field(userform.confirm) }}
+          </fieldset>
+            <div class="form-group">
+              {{ userform.csrf_token() }}
+              {{ render_field(userform.submit, class="btn btn-primary") }}
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+{%- endblock -%}
+

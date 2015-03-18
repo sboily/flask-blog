@@ -1,0 +1,71 @@
+{% macro render_field(field) -%}
+  {% set with_label = kwargs.pop('with_label', False) %}
+  {% set with_icon = kwargs.pop('with_icon', False) %}
+  {% set placeholder = '' %}
+
+  {% if not with_label %}
+    {% set placeholder = field.label.text %}
+  {% endif %}
+
+  <div class="form-group {% if field.errors %}has-error{% endif %}">
+    {% if with_label %}
+      <label for="{{ field.id }}" class="control-label">
+        {{ field.label.text }}{% if field.flags.required %} *{% endif %}:
+      </label>
+    {% endif %}
+
+    {% if with_icon %}
+      <div class="input-group">
+        <span class="input-group-addon">
+        <i class="glyphicon glyphicon-{{ with_icon }}"></i></span>
+    {% endif %}
+
+    {% set class_ = kwargs.pop('class_', '') %}
+    {% if field.flags.required %}
+      {% set class_ = class_ + ' required' %}
+    {% endif %}
+
+    {% if field.type == 'BooleanField' %}
+      <div class="checkbox">
+        <label class="checkbox">
+          {{ field.label.text|safe }}
+          {{ field(class_ = class_, **kwargs) }}
+        </label>
+      </div>
+    {% elif field.type == 'RadioField' %}
+      {% for value, label, _ in field.iter_choices() %}
+        <div class="radio-inline">
+          <label>
+            <input type="radio" name="{{ field.id }}" id="{{ field.id }}" value="{{ value }}">
+            {{ label }}
+          </label>
+        </div>
+      {% endfor %}
+    {% else %}
+      {% if field.type in ('TextField', 'TextAreaField', 'PasswordField', 'EmailField', 'IntegerField') %}
+        {% set class_ = class_ + ' form-control' %}
+      {% endif %}
+
+      {% if field.type in ('SelectField', 'QuerySelectField', 'QuerySelectMultipleField') %}
+        {{ field(class_ = class_ + ' form-control', **kwargs) }}
+      {% else %}
+        {{ field(class_ = class_, placeholder=placeholder, **kwargs) }}
+      {% endif %}
+
+    {% endif %}
+
+    {% if field.errors %}
+      <span id="popover" data-toggle="popover" data-container="body" data-trigger="focus" 
+        title="{{ field.label.text }}" data-placement="bottom" data-content="{{ field.errors|join(', ') }}"></span>
+    {% endif %}
+
+    {% if field.description %}
+      <p class="help-block">{{ field.description|safe }}</p>
+    {% endif %}
+
+    {% if with_icon %}
+      </div>
+    {% endif %}
+  </div>
+
+{%- endmacro %}

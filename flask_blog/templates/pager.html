@@ -1,0 +1,22 @@
+
+{%- block pager -%}
+  {% if pagination and pagination.pages > 1 %}
+    <ul class="pager">
+      {% for page in pagination.iter_pages() %}
+        {% if page %}
+          <li {% if page == pagination.page %}class="active next"{% endif %}>
+            <a href="{{ url_for_other_page(page) }}">Older Posts &rarr;{{ page }}</a>
+          </li>
+        {% else %}
+          <li><span class=ellipsis>…</span></li>
+        {% endif %}
+      {% endfor %}
+      {% if pagination.has_next %}
+        <li class="next">
+          <a href="{{ url_for_other_page(pagination.page + 1) }}">Pouet &raquo;</a>
+        </li>
+      {% endif %}
+    </ul>
+  {% endif %}
+{%- endblock -%}
+

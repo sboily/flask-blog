@@ -1,0 +1,37 @@
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('home.index') }}">
+              {%- if meta_title -%} {{ meta_title }} {%- else -%} Flask-blog {%- endif -%}
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated() %}
+			<li><a href="{{ url_for('users.list') }}">Users</a></li>
+			<li><a href="{{ url_for('posts.list') }}">Posts</a></li>
+			<li><a href="{{ url_for('posts.add') }}">New post</a></li>
+			<li><a href="{{ url_for('settings.index') }}">Settings</a></li>
+			<li><a href="{{ url_for('users.logout') }}">Logout</a></li>
+		{% else %}
+			<li><a href="{{ url_for('users.login') }}">Login</a></li>
+		{% endif %}
+                <li> <a href="{{ url_for('about.index') }}">About</a> </li>
+                <li> <a href="{{ url_for('contact.index') }}">Contact</a> </li>
+            </ul>
+	    <form class="navbar-form navbar-right search-form" method="post" action="{{ url_for('about.index') }}">
+                <input type="text" name="query" class="form-control col-lg-8" placeholder="Search">
+		<input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+	    </form>
+        </div>
+    </div>
+</nav>
+

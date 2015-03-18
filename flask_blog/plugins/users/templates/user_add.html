@@ -1,0 +1,37 @@
+{%- extends "layout.html" -%}
+
+{%- block header -%}
+    <header class="intro-header" style="background-image: url('{{ url_for('static', filename='img/home-bg.jpg') }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        <h1>Add user</h1>
+                        <hr class="small">
+                        <span class="subheading">You have a new contributor.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{%- endblock -%}
+
+{%- block body -%}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+	<form role="form" method="post" action="{{ url_for('users.add') }}">
+            {{ render_field(form.username) }}
+            {{ render_field(form.email) }}
+            {{ render_field(form.password) }}
+            {{ render_field(form.confirm) }}
+          <div class="form-group">
+            {{ form.csrf_token() }}
+            {{ render_field(form.submit, class="btn btn-primary") }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{%- endblock -%}
+

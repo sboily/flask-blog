@@ -1,0 +1,67 @@
+{%- extends 'layout.html' -%}
+
+{% block additional_js %}
+    <script language="javascript" type="text/javascript" src="{{ url_for('posts.static', filename='js/bootstrap3-wysihtml5.all.min.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ url_for('posts.static', filename='js/posts.js') }}"></script>
+{% endblock %}
+
+{% block additional_css %}
+    <link href="{{ url_for('posts.static', filename='css/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{%- block header -%}
+    <header class="intro-header" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        <h1>Edit post</h1>
+                        <hr class="small">
+                        <span class="subheading">Change the word.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{%- endblock -%}
+
+
+{%- block body -%}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        {%- with messages = get_flashed_messages(with_categories=True) -%}
+          {%- if messages -%}
+            {%- for category, message in messages -%}
+              <div class="response">
+                <span class="message {{ category }}">{%- if category == 'success' -%}✔{%- endif -%}&nbsp;{{ message }}</span>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endwith -%}
+      <form id="post-form" role="form" method="post" action="{{ url_for('posts.edit', id=post._id) }}">
+        <div class="form-group">
+          {{ form.title(size=60, placeholder="Title", class="form-control") }}
+	</div>
+
+	<div class="form-group">
+          {{ form.preview(placeholder="Short Text", class="form-control", id="post-short") }}
+	</div>
+
+	<div class="form-group {% if error and error_type == 'validate' %} has-error{% endif %}">
+          {{ form.body(placeholder="Full Text", class="form-control", id="editor") }}
+	</div>
+
+	<div class="form-group">
+          {{ form.tags(placeholder="Tags (comma separated)", class="form-control", id="post-tags") }}
+	</div>
+	<div class="form-group">
+          {{ form.csrf_token() }}
+          {{ form.submit(class="btn btn-primary", id="post-submit") }}
+          {{ form.submit_preview(class="btn", id="post-submit") }}
+	</div>
+      </form>
+    </div>
+  </div>
+</div>
+{%- endblock -%}

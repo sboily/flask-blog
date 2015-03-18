@@ -1,0 +1,34 @@
+{%- extends 'layout.html' -%}
+
+{%- block body -%}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        {%- if posts -%}
+          {%- for post in posts -%}
+            <div class="post-preview">
+              <a href="{{ url_for('posts.get', id=post._id) }}">
+                <h2 class="post-title">
+                  {{ post.title|safe }}
+                </h2>
+                <h3 class="post-subtitle">
+	  	   {%- if post.preview -%}
+		     {{ post.preview|markdown }}
+		   {%- else -%}
+		     {{ post.body|markdown }}
+		   {%- endif -%}
+                </h3>
+              </a>
+              <p class="post-meta">Posted by <a href="#">{{ post.author }}</a> {{ post.date|formatdate }}</p>
+            </div>
+          {%- endfor -%}
+        {% else %}
+          <div class="post-title">
+            <h1 class="text-center">There is no post !</h1>
+          </div>
+        {%- endif -%}
+        <hr>
+      </div>
+    </div>
+  </div>
+{%- endblock -%}

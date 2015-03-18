@@ -1,0 +1,32 @@
+{%- extends 'layout.html' -%}
+
+{%- if post -%}
+  {%- block header -%}
+    <header class="intro-header" style="background-image: url('{{ url_for('static', filename='img/post-bg.jpg') }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>{{ post.title|safe }}</h1>
+                        <h2 class="subheading">{{ post.preview }}</h2>
+                        <span class="meta">Posted by <a href="#">{{ post.author }}</a> {{ post.date|formatdate }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+  {%- endblock -%}
+
+  {%- block body -%}
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+	    {{ post.preview|markdown }}
+	    {{ post.body|markdown }}
+	  </div>
+        </div>
+      </div>
+    </article>
+  {%- endblock -%}
+{%- endif -%}

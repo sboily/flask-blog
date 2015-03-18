@@ -1,0 +1,45 @@
+{%- extends "layout.html" -%}
+
+{%- block header -%}
+    <header class="intro-header" style="background-image: url('{{ url_for('static', filename='img/home-bg.jpg') }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        <h1>Settings</h1>
+                        <hr class="small">
+                        <span class="subheading">Change your parameters.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{%- endblock -%}
+
+{%- block body -%}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+	<form role="form" method="post" action="{{ url_for('settings.index') }}">
+          <fieldset>
+	    <legend>Blog section</legend>
+              {{ render_field(form.title) }}
+              {{ render_field(form.description) }}
+              {{ render_field(form.bypage, min="1") }}
+          </fieldset>
+          <fieldset>
+	    <legend>Social section</legend>
+              {{ render_field(form.facebook) }}
+              {{ render_field(form.twitter) }}
+              {{ render_field(form.github) }}
+          </fieldset>
+          <div class="form-group">
+            {{ form.csrf_token() }}
+            {{ form.submit(class="btn btn-primary", id="post-submit") }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{%- endblock -%}
+
