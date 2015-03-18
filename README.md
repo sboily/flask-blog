@@ -1,7 +1,7 @@
 Microblog with flask
 ====================
 
-This is a proof of concept to create a microblog in python, orchestrated by docker (docker-compose).
+This is a proof of concept to create a microblog in python, orchestrated by docker (docker-compose). Every components is a module loaded by stevedore. It's very easy to added new modules.
 
 Inspired by the idea from https://github.com/dmaslov/flask-blog
 
