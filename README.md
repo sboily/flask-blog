@@ -1,4 +1,7 @@
-#Microblog with flask#
+Microblog with flask
+====================
+
+This is a proof of concept to create a microblog in python, orchestrated by docker (docker-compose).
 
 Inspired by the idea from https://github.com/dmaslov/flask-blog
 
@@ -14,3 +17,17 @@ You need docker-compose.
 And execute docker-compose
 
     docker-compose up
+
+Thanks to 
+=========
+
+- Flask
+- Flask PyMongo
+- Flask Login
+- Flask WTForms
+- Flask Markdown
+- Stevedore
+- MongoDB
+- Bootstrap
+- Jquery
+- Docker
